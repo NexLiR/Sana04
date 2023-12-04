@@ -3,7 +3,7 @@ class Program
 {
     static void Main()
     {
-        int N=3, M=10;
+        int N=3, M=5;
         //bool check0 = false, check1, check2, check3, check4, check5 = false;
         //Console.WriteLine("Enter matrix size:");
         //do
@@ -48,6 +48,7 @@ class Program
         numberOfRowsThatDontContainZeros(array);
         numberOfColumnsThatContainZereos(array);
         rowNumberThatContainsLongestSeriesOfIdenticalElements(array);
+        multiplOfElementsInRowsWithoutNegNumbers(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -174,7 +175,7 @@ class Program
                 }
             }
         }
-        if (rowNumber[0] != -1)
+        if (rowNumber[0] != 1)
         {
             Console.Write("Number of row that have the longest series of indentical elements: ");
             int maxNumber = -1;
@@ -186,6 +187,31 @@ class Program
             {
                 if (rowNumber[i] == maxNumber) Console.Write("{0} ", i + 1);
             }
+        }
+    }
+    static void multiplOfElementsInRowsWithoutNegNumbers(int[,] array)
+    {
+        bool[] isRowConsistNegativeNumber = new bool[array.GetLength(0)];
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                if (array[i, j] < 0)
+                {
+                    isRowConsistNegativeNumber[i] = true;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            if (isRowConsistNegativeNumber[i] == true) continue;
+            int dob = 1;
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                dob *= array[i, j];
+            }
+            Console.WriteLine("Product of {0} row of array: {1}", i + 1, dob);
         }
     }
 }
