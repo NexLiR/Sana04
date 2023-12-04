@@ -52,6 +52,8 @@ class Program
         maxSumOfParallelDiagToMainDiag(array, N, M);
         sumOfElementsInColumnsWithoutNegEl(array);
         minSumOfAbsoluteElementsFromDiagParallelToSecondaryDiag(array, N, M);
+        sumOfElementsInColumnsWithNegEl(array);
+        transposeMatrix(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -328,5 +330,45 @@ class Program
             Console.WriteLine("Minimal sum of absolute elements from diagonals that parallel to secondary diagonal: {0}", minSum);
         }
         else Console.WriteLine("This is not a square matrix");
+    }
+    static void sumOfElementsInColumnsWithNegEl(int[,] array)
+    {
+        bool[] isColumnConsistNegativeNumber = new bool[array.GetLength(1)];
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                if (array[i, j] < 0)
+                {
+                    isColumnConsistNegativeNumber[j] = true;
+                    break;
+                }
+            }
+        }
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (isColumnConsistNegativeNumber[j] == false) continue;
+            int sum = 0;
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                sum += array[i, j];
+            }
+            Console.WriteLine("Sum of elements in {0} column: {1}", j + 1, sum);
+        }
+    }
+    static void transposeMatrix(int[,] array)
+    {
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        int[,] transposed = new int[cols, rows];
+        for (int i = 0; i < cols; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                transposed[i, j] = array[j, i];
+            }
+        }
+        Console.WriteLine("Transposed matrix:");
+        printArray(transposed);
     }
 }
