@@ -49,8 +49,9 @@ class Program
         numberOfColumnsThatContainZereos(array);
         rowNumberThatContainsLongestSeriesOfIdenticalElements(array);
         multiplOfElementsInRowsWithoutNegNumbers(array);
-        maxSumOfParalelDiagToMainDiag(array, N, M);
+        maxSumOfParallelDiagToMainDiag(array, N, M);
         sumOfElementsInColumnsWithoutNegEl(array);
+        minSumOfAbsoluteElementsFromDiagParallelToSecondaryDiag(array, N, M);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -217,7 +218,7 @@ class Program
             Console.WriteLine("Product of elements in {0} row: {1}", i + 1, dob);
         }
     }
-    static void maxSumOfParalelDiagToMainDiag(int[,] array, int N, int M) 
+    static void maxSumOfParallelDiagToMainDiag(int[,] array, int N, int M) 
     {
         if (N == M)
         {
@@ -256,7 +257,7 @@ class Program
                     maxSum = sum;
                 }
             }
-            Console.WriteLine("Maximum sum of elements from diagonals that paralel to main: {0}", maxSum);
+            Console.WriteLine("Maximum sum of elements from diagonals that parallel to main: {0}", maxSum);
         }
         else Console.WriteLine("This is not a square matrix");
     }
@@ -285,5 +286,47 @@ class Program
             Console.WriteLine("Sum of elements in {0} column: {1}", j + 1, sum);
         }
     }
-
+    static void minSumOfAbsoluteElementsFromDiagParallelToSecondaryDiag(int[,] array, int N, int M) 
+    {
+        if (N == M)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            int minSum = int.MaxValue;
+            for (int i = 0; i < rows; i++)
+            {
+                int sum = 0;
+                int row = i;
+                int col = cols - 1;
+                while (row < rows && col >= 0)
+                {
+                    sum += Math.Abs(array[row, col]);
+                    row++;
+                    col--;
+                }
+                if (sum < minSum)
+                {
+                    minSum = sum;
+                }
+            }
+            for (int j = cols - 2; j >= 0; j--)
+            {
+                int sum = 0;
+                int row = 0;
+                int col = j;
+                while (col >= 0 && row < rows)
+                {
+                    sum += Math.Abs(array[row, col]);
+                    row++;
+                    col--;
+                }
+                if (sum < minSum)
+                {
+                    minSum = sum;
+                }
+            }
+            Console.WriteLine("Minimal sum of absolute elements from diagonals that parallel to secondary diagonal: {0}", minSum);
+        }
+        else Console.WriteLine("This is not a square matrix");
+    }
 }
