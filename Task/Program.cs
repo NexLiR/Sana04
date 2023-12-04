@@ -45,6 +45,8 @@ class Program
         printArray(array);
         positiveElementsCounter(array);
         maxElementNumberThatRepeat(array);
+        numberOfRowsThatDontContainZeros(array);
+        numberOfColumnsThatContainZereos(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -64,7 +66,7 @@ class Program
         {
             for (int j = 0; j < array.GetLength(1); j++)
             {
-                Console.Write(" {0}  ", array[i, j]);
+                Console.Write($"{array[i, j],5}");
             }
             Console.WriteLine();
         }
@@ -110,5 +112,39 @@ class Program
         }
         if (maxNumber == int.MinValue) Console.WriteLine("Array does not have numbers that repeat");
         else Console.WriteLine("Maximum number that repeats in the array: {0}", maxNumber);
+    }
+    static void numberOfRowsThatDontContainZeros(int[,] array) 
+    {
+        int counter = array.GetLength(0);
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            bool isRowContainsZeroes = false;
+            for (int j = 0; j < array.GetLength(1); j++)
+            { 
+                if (array[i,j] == 0) 
+                {
+                    isRowContainsZeroes = true; break;
+                }
+            }
+            if (isRowContainsZeroes == true) counter--; 
+        }
+        if (counter == array.GetLength(0)) Console.WriteLine("Array doesn`t contain 0");
+        else Console.WriteLine("Number of rows in array that don't contain 0: {0}", counter);
+    }
+    static void numberOfColumnsThatContainZereos(int[,] array) 
+    {
+        int counter = 0;
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                if (array[i, j] == 0)
+                {
+                    counter++; break;
+                }
+            }
+        }
+        if (counter == 0) Console.WriteLine("Array doesn`t contain 0");
+        else Console.WriteLine("Number of columns in array that contain 0: {0}", counter);
     }
 }
