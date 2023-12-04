@@ -3,7 +3,7 @@ class Program
 {
     static void Main()
     {
-        int N=3, M=6;
+        int N=3, M=10;
         //bool check0 = false, check1, check2, check3, check4, check5 = false;
         //Console.WriteLine("Enter matrix size:");
         //do
@@ -47,6 +47,7 @@ class Program
         maxElementNumberThatRepeat(array);
         numberOfRowsThatDontContainZeros(array);
         numberOfColumnsThatContainZereos(array);
+        rowNumberThatContainsLongestSeriesOfIdenticalElements(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -146,5 +147,45 @@ class Program
         }
         if (counter == 0) Console.WriteLine("Array doesn`t contain 0");
         else Console.WriteLine("Number of columns in array that contain 0: {0}", counter);
+    }
+    static void rowNumberThatContainsLongestSeriesOfIdenticalElements(int[,] array) 
+    {
+        int[] rowNumber = new int[array.GetLength(0)];
+        rowNumber[0] = -1;
+        int maxCountOfRepeating = 1;
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            
+            for (int j = 0; j < array.GetLength(1);j++) 
+            {
+                int repeatCheck = array[i, j];
+                int counter = 1;
+                for (int j1 = j + 1; j1 < array.GetLength(1); j1++)
+                {
+                    if(repeatCheck == array[i,j1])
+                    {
+                        counter++;
+                    }
+                }
+                if (maxCountOfRepeating <= counter)
+                {
+                    maxCountOfRepeating = counter;
+                    rowNumber[i] = maxCountOfRepeating;
+                }
+            }
+        }
+        if (rowNumber[0] != -1)
+        {
+            Console.Write("Number of row that have the longest series of indentical elements: ");
+            int maxNumber = -1;
+            for (int i = 0; i < rowNumber.GetLength(0); i++)
+            {
+                if (rowNumber[i] > maxNumber) maxNumber = rowNumber[i];
+            }
+            for (int i = 0; i < rowNumber.GetLength(0); i++)
+            {
+                if (rowNumber[i] == maxNumber) Console.Write("{0} ", i + 1);
+            }
+        }
     }
 }
