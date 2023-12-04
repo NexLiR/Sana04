@@ -50,6 +50,7 @@ class Program
         rowNumberThatContainsLongestSeriesOfIdenticalElements(array);
         multiplOfElementsInRowsWithoutNegNumbers(array);
         maxSumOfParalelDiagToMainDiag(array, N, M);
+        sumOfElementsInColumnsWithoutNegEl(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -188,6 +189,7 @@ class Program
             {
                 if (rowNumber[i] == maxNumber) Console.Write("{0} ", i + 1);
             }
+            Console.WriteLine();
         }
     }
     static void multiplOfElementsInRowsWithoutNegNumbers(int[,] array)
@@ -212,7 +214,7 @@ class Program
             {
                 dob *= array[i, j];
             }
-            Console.Write("\nProduct of {0} row of array: {1}", i + 1, dob);
+            Console.WriteLine("Product of elements in {0} row: {1}", i + 1, dob);
         }
     }
     static void maxSumOfParalelDiagToMainDiag(int[,] array, int N, int M) 
@@ -258,4 +260,30 @@ class Program
         }
         else Console.WriteLine("This is not a square matrix");
     }
+    static void sumOfElementsInColumnsWithoutNegEl(int[,] array)
+    {
+        bool[] isColumnConsistNegativeNumber = new bool[array.GetLength(1)];
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                if (array[i, j] < 0)
+                {
+                    isColumnConsistNegativeNumber[j] = true;
+                    break;
+                }
+            }
+        }
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (isColumnConsistNegativeNumber[j] == true) continue;
+            int sum = 0;
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                sum += array[i, j];
+            }
+            Console.WriteLine("Sum of elements in {0} column: {1}", j + 1, sum);
+        }
+    }
+
 }
