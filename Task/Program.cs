@@ -3,7 +3,7 @@ class Program
 {
     static void Main()
     {
-        int N=3, M=5;
+        int N=5, M=5;
         //bool check0 = false, check1, check2, check3, check4, check5 = false;
         //Console.WriteLine("Enter matrix size:");
         //do
@@ -49,6 +49,7 @@ class Program
         numberOfColumnsThatContainZereos(array);
         rowNumberThatContainsLongestSeriesOfIdenticalElements(array);
         multiplOfElementsInRowsWithoutNegNumbers(array);
+        maxSumOfParalelDiagToMainDiag(array, N, M);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -211,7 +212,50 @@ class Program
             {
                 dob *= array[i, j];
             }
-            Console.WriteLine("Product of {0} row of array: {1}", i + 1, dob);
+            Console.Write("\nProduct of {0} row of array: {1}", i + 1, dob);
         }
+    }
+    static void maxSumOfParalelDiagToMainDiag(int[,] array, int N, int M) 
+    {
+        if (N == M)
+        {
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            int maxSum = int.MinValue;
+            for (int i = 0; i < rows; i++)
+            {
+                int sum = 0;
+                int row = i;
+                int col = 0;
+                while (row < rows && col < cols)
+                {
+                    sum += array[row, col];
+                    row++;
+                    col++;
+                }
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                }
+            }
+            for (int j = 1; j < cols; j++)
+            {
+                int sum = 0;
+                int row = 0;
+                int col = j;
+                while (row < rows && col < cols)
+                {
+                    sum += array[row, col];
+                    row++;
+                    col++;
+                }
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                }
+            }
+            Console.WriteLine("Maximum sum of elements from diagonals that paralel to main: {0}", maxSum);
+        }
+        else Console.WriteLine("This is not a square matrix");
     }
 }
