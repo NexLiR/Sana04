@@ -44,6 +44,7 @@ class Program
         array = arrayGen(array, min, max);
         printArray(array);
         positiveElementsCounter(array);
+        maxElementNumberThatRepeat(array);
     }
     static int[,] arrayGen(int[,] array, int min, int max)
     {
@@ -79,5 +80,35 @@ class Program
             }
         }
         Console.WriteLine("Number of positive elements in the array: {0}", counter);
+    }
+
+    static void maxElementNumberThatRepeat(int[,] array)
+    {
+        int maxNumber = int.MinValue;
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                int comparision = array[i, j];
+                for (int i1 = 0; i1 < array.GetLength(0); i1++)
+                {
+                    for(int j1 = 0; j1 < array.GetLength(1);j1++)
+                    {
+                        if (i != i1 && j != j1)
+                        {
+                            if (comparision == array[i1, j1])
+                            {
+                                if (maxNumber < array[i, j])
+                                {
+                                    maxNumber = array[i, j];
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+        if (maxNumber == int.MinValue) Console.WriteLine("Array does not have numbers that repeat");
+        else Console.WriteLine("Maximum number that repeats in the array: {0}", maxNumber);
     }
 }
