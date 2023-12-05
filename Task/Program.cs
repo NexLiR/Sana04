@@ -222,46 +222,42 @@ class Program
     }
     static void maxSumOfParallelDiagToMainDiag(int[,] array, int N, int M) 
     {
-        if (N == M)
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        int maxSum = int.MinValue;
+        for (int i = 0; i < rows; i++)
         {
-            int rows = array.GetLength(0);
-            int cols = array.GetLength(1);
-            int maxSum = int.MinValue;
-            for (int i = 0; i < rows; i++)
+            int sum = 0;
+            int row = i;
+            int col = 0;
+            while (row < rows && col < cols)
             {
-                int sum = 0;
-                int row = i;
-                int col = 0;
-                while (row < rows && col < cols)
-                {
-                    sum += array[row, col];
-                    row++;
-                    col++;
-                }
-                if (sum > maxSum)
-                {
-                    maxSum = sum;
-                }
+                sum += array[row, col];
+                row++;
+                col++;
             }
-            for (int j = 1; j < cols; j++)
+            if (sum > maxSum)
             {
-                int sum = 0;
-                int row = 0;
-                int col = j;
-                while (row < rows && col < cols)
-                {
-                    sum += array[row, col];
-                    row++;
-                    col++;
-                }
-                if (sum > maxSum)
-                {
-                    maxSum = sum;
-                }
+                maxSum = sum;
             }
-            Console.WriteLine("Maximum sum of elements from diagonals that parallel to main: {0}", maxSum);
         }
-        else Console.WriteLine("This is not a square matrix");
+        for (int j = 1; j < cols; j++)
+        {
+            int sum = 0;
+            int row = 0;
+            int col = j;
+            while (row < rows && col < cols)
+            {
+                sum += array[row, col];
+                row++;
+                col++;
+            }
+            if (sum > maxSum)
+            {
+                maxSum = sum;
+            }
+        }
+        Console.WriteLine("Maximum sum of elements from diagonals that parallel to main: {0}", maxSum);
     }
     static void sumOfElementsInColumnsWithoutNegEl(int[,] array)
     {
@@ -290,46 +286,42 @@ class Program
     }
     static void minSumOfAbsoluteElementsFromDiagParallelToSecondaryDiag(int[,] array, int N, int M) 
     {
-        if (N == M)
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        int minSum = int.MaxValue;
+        for (int i = 0; i < rows; i++)
         {
-            int rows = array.GetLength(0);
-            int cols = array.GetLength(1);
-            int minSum = int.MaxValue;
-            for (int i = 0; i < rows; i++)
+            int sum = 0;
+            int row = i;
+            int col = cols - 1;
+            while (row < rows && col >= 0)
             {
-                int sum = 0;
-                int row = i;
-                int col = cols - 1;
-                while (row < rows && col >= 0)
-                {
-                    sum += Math.Abs(array[row, col]);
-                    row++;
-                    col--;
-                }
-                if (sum < minSum)
-                {
-                    minSum = sum;
-                }
+                sum += Math.Abs(array[row, col]);
+                row++;
+                col--;
             }
-            for (int j = cols - 2; j >= 0; j--)
+            if (sum < minSum)
             {
-                int sum = 0;
-                int row = 0;
-                int col = j;
-                while (col >= 0 && row < rows)
-                {
-                    sum += Math.Abs(array[row, col]);
-                    row++;
-                    col--;
-                }
-                if (sum < minSum)
-                {
-                    minSum = sum;
-                }
+                minSum = sum;
             }
-            Console.WriteLine("Minimal sum of absolute elements from diagonals that parallel to secondary diagonal: {0}", minSum);
         }
-        else Console.WriteLine("This is not a square matrix");
+        for (int j = cols - 2; j >= 0; j--)
+        {
+            int sum = 0;
+            int row = 0;
+            int col = j;
+            while (col >= 0 && row < rows)
+            {
+                sum += Math.Abs(array[row, col]);
+                row++;
+                col--;
+            }
+            if (sum < minSum)
+            {
+                minSum = sum;
+            }
+        }
+        Console.WriteLine("Minimal sum of absolute elements from diagonals that parallel to secondary diagonal: {0}", minSum);
     }
     static void sumOfElementsInColumnsWithNegEl(int[,] array)
     {
